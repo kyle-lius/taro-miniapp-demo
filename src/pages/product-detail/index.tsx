@@ -55,7 +55,7 @@ export default function ProductDetail() {
           receiverPhone,
           items: [
             {
-              productId: product?.id,
+              productId: product.id,
               quantity
             }
           ]
@@ -119,7 +119,7 @@ export default function ProductDetail() {
 
       {showPopup && (
         <View className='popup-mask' onClick={() => setShowPopup(false)}>
-          <View className='popup'>
+          <View className='popup' onClick={(e) => e.stopPropagation()}>
             <Text className='popup-title'>确认订单</Text>
 
             {/* 商品信息 */}

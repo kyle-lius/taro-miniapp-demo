@@ -8,7 +8,7 @@ interface Order {
   receiverName: string
   receiverPhone: string
   shippingAddress: string
-  totalAmount: number
+  totalPrice: number
   status: string
   createTime: string
 }
@@ -43,7 +43,7 @@ export default function OrderList() {
 
           <View className='order-row'>
             <Text>订单金额</Text>
-            <Text className='amount'>￥{item.totalAmount}</Text>
+            <Text className='amount'>￥{item.totalPrice}</Text>
           </View>
 
           <View className='order-row'>
