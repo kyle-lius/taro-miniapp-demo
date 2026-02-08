@@ -2,6 +2,9 @@
 
 这是一个基于 Taro 框架开发的微信小程序项目，支持多端编译（微信小程序、支付宝小程序、字节跳动小程序等）。
 
+修改API访问BaseUrl配置:
+1. 修改 `/sr/config/env.ts` 文件中的 `DEV_BASE_URL` 配置项，设置 API 访问的 Base URL。
+
 ## 技术栈
 
 - **框架**: Taro v4.1.11
