@@ -1,3 +1,4 @@
 export default {
-  navigationBarTitleText: '产品列表'
+  navigationBarTitleText: '产品列表',
+  enablePullDownRefresh: true
 }

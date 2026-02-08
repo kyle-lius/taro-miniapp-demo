@@ -1,3 +1,4 @@
 export default {
-  navigationBarTitleText: '商品详情'
+  navigationBarTitleText: '商品详情',
+  enablePullDownRefresh: true
 }

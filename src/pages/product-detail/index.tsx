@@ -1,7 +1,8 @@
-import {View, Text, Image, Button, Input, Textarea} from '@tarojs/components'
+import {View, Text, Image, Button, Input} from '@tarojs/components'
 import Taro, {useRouter} from '@tarojs/taro'
 import {useEffect, useState} from 'react'
 import {request} from '@/utils/request'
+import {validatePhone} from '@/utils/validators'
 import './index.scss'
 
 interface ProductDetail {
@@ -41,6 +42,12 @@ export default function ProductDetail() {
   const submitOrder = async () => {
     if (!receiverName || !receiverPhone || !address) {
       Taro.showToast({title: '请填写完整信息', icon: 'none'})
+      return
+    }
+
+    // 验证手机号码
+    if (!validatePhone(receiverPhone)) {
+      Taro.showToast({title: '请输入正确的手机号码', icon: 'none'})
       return
     }
 
@@ -167,11 +174,19 @@ export default function ProductDetail() {
               />
 
               <Input
-                className='input'
+                className={`input ${!validatePhone(receiverPhone) && receiverPhone ? 'error' : ''}`}
                 placeholder='手机号'
                 type='number'
                 value={receiverPhone}
-                onInput={e => setReceiverPhone(e.detail.value)}
+                maxlength={11}
+                onInput={e => {
+                  const value = e.detail.value;
+                  // 只允许输入数字
+                  const numericValue = value.replace(/\D/g, '');
+                  // 限制最多11位数字
+                  const finalValue = numericValue.slice(0, 11);
+                  setReceiverPhone(finalValue);
+                }}
               />
 
               <Input

@@ -1,5 +1,5 @@
 import {View, Text, Image} from '@tarojs/components'
-import Taro from '@tarojs/taro'
+import Taro, { usePullDownRefresh } from '@tarojs/taro'
 import {useState, useEffect} from 'react'
 import {request} from '@/utils/request'
 import './index.scss'
@@ -18,12 +18,33 @@ const DEFAULT_IMAGE =
 export default function ProductList() {
   const [list, setList] = useState<Product[]>([])
 
+  // 加载产品数据
+  const loadData = async () => {
+    try {
+      const res = await request<Product[]>({
+        url: '/api/product/all',
+        method: 'GET'
+      })
+      setList(res.data)
+    } catch (error) {
+      Taro.showToast({
+        title: '加载失败',
+        icon: 'none'
+      })
+    } finally {
+      // 停止下拉刷新
+      Taro.stopPullDownRefresh()
+    }
+  }
+
   useEffect(() => {
-    request<Product[]>({
-      url: '/api/product/all',
-      method: 'GET'
-    }).then(res => setList(res.data))
+    loadData()
   }, [])
+
+  // 处理下拉刷新
+  usePullDownRefresh(() => {
+    loadData()
+  })
 
   const goDetail = (id: number) => {
     Taro.navigateTo({

@@ -25,10 +25,10 @@ export default {
       {
         pagePath: 'pages/order-list/index',
         text: '订单'
-      },
-      {
-        pagePath: 'pages/profile/index',
-        text: '我'
+      // },
+      // {
+      //   pagePath: 'pages/profile/index',
+      //   text: '我'
       }
     ]
   }
